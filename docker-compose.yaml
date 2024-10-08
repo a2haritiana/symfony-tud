@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  tus-symfony:
+    build:
+      context: ./docker
+    container_name: tus_symfony
+    working_dir: /var/www/symfony
+    volumes:
+      - .:/var/www/symfony
+#      - ./var/uploads:your_folder !CHANGE THIS TO YOUR UPLOADS FOLDER
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - symfony
+    depends_on:
+      - mysql
+
+  nginx:
+    image: nginx:alpine
+    container_name: symfony_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/symfony
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - tus-symfony
+    networks:
+      - symfony
+
+  mysql:
+    image: mysql:8.0
+    container_name: symfony_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - symfony
+
+networks:
+  symfony:
+
+volumes:
+  db_data:
