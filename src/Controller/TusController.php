@@ -19,7 +19,8 @@ class TusController extends AbstractController
         '/tus/{token?}',
         name: 'tus',
         requirements: ['token' => '[\w\-=]+'],
-        methods: ['POST', 'PATCH', 'HEAD', 'OPTIONS']
+        methods: ['POST', 'PATCH', 'HEAD', 'OPTIONS'],
+        schemes: ['https']
     )]
     public function tusServer(): BinaryFileResponse|Response
     {

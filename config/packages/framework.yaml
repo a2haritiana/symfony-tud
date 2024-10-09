@@ -11,6 +11,8 @@ framework:
 
 when@test:
     framework:
+        trusted_proxies: '127.0.0.1,REMOTE_ADDR'
+        trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port', 'x-forwarded-prefix']
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
