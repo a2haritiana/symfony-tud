@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\TusService;
 use Psr\Log\LoggerInterface;
+use ReflectionException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,12 +30,12 @@ class TusController extends AbstractController
 
             return $tusResponse->send();
 
-        }catch (\ReflectionException $e){
-            $this->logger->error('--- TUS ERROR --- '.$e->getMessage());
+        } catch (ReflectionException $e) {
+            $this->logger->error('--- TUS ERROR --- ' . $e->getMessage());
 
             return $this->json([
-                'error' => 'Erreur TUS',
-                'message' =>$e->getMessage()
+                'error'   => 'Erreur TUS',
+                'message' => $e->getMessage(),
             ]);
         }
 
