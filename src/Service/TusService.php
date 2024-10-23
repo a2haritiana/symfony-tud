@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
+use ReflectionException;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use TusPhp\Cache\FileStore;
 use TusPhp\Tus\Server as TusServer;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class TusService
 {
@@ -16,13 +17,13 @@ class TusService
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function getServer(): TusServer
     {
         $server = new TusServer();
 
-        $cache = new FileStore($this->params->get('kernel.project_dir'). '/var/tus-cache/');
+        $cache = new FileStore($this->params->get('kernel.project_dir') . '/var/tus-cache/');
 
         $server
             ->setApiPath('/tus') // tus server endpoint.
