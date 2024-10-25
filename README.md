@@ -9,6 +9,7 @@ This project is a TUS (Tus Upload Service) server implementation using **Symfony
 - [Docker Setup](#docker-setup)
 - [Usage](#usage)
 - [File Structure](#file-structure)
+- [Code Style](#code-style)
 - [License](#license)
 
 ## Requirements
@@ -121,6 +122,16 @@ Key components of the project:
 - **Docker Setup**:
     - **Dockerfile**: Defines the PHP-FPM image setup and application dependencies.
     - **docker-compose.yml**: Sets up the environment with PHP, Nginx, and MySQL services.
+
+## Code Style
+
+The project includes **PHP CS Fixer** for automatic code style enforcement. To apply consistent formatting to the codebase, run:
+
+```bash
+vendor/bin/php-cs-fixer fix
+```
+
+Code styles are automatically corrected according to predefined rules in the `.php_cs.dist` configuration file.
 
 ## License
 
